@@ -20,4 +20,18 @@ class CourseController extends Controller
 
         return CourseResource::collection($courses);
     }
+
+    /**
+     * Retorna um curso
+     * 
+     * @param int $id
+     * 
+     * @return object
+     */
+    public function show($id)
+    {
+        $course = Course::findOrFail($id);
+
+        return new CourseResource($course);
+    }
 }
