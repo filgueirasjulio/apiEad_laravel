@@ -15,6 +15,6 @@ class ModuleRepository
 
     public function getAllModules(string $courseId)
     {
-      return  $this->model->where('course_id', $courseId)->paginate();
+      return  $this->model->with('lessons')->where('course_id', $courseId)->paginate();
     }
 }

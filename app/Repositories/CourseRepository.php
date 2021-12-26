@@ -15,11 +15,11 @@ class CourseRepository
 
     public function getAllCourses()
     {
-      return  $this->model->paginate();
+      return  $this->model->with('modules.lessons')->paginate();
     }
 
     public function getCourse($identify)
     {
-        return $this->model->findOrFail($identify);
+        return $this->model->with('modules.lessons')->findOrFail($identify);
     }
 }

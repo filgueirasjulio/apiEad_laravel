@@ -30,7 +30,6 @@ class LessonRepository
       $query->whereHas('course', function ($subquery) use ($courseId) {
         $subquery->where('id', $courseId);
       });
-    })->where('id', $lessonId)
-      ->firstOrFail();
+    })->findOrFail($lessonId);
   }
 }
