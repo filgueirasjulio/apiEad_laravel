@@ -25,6 +25,6 @@ class ModuleController extends Controller
      */
     public function index($courseId)
     {
-        return ModuleResource::collection($this->repository->getModulesByCourseId($courseId));
+        return ModuleResource::collection($this->repository->getAllModules($courseId));
     }
 }

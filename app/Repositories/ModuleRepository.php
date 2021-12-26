@@ -13,7 +13,7 @@ class ModuleRepository
         $this->model = $model;
     }
 
-    public function getModulesByCourseId(string $courseId)
+    public function getAllModules(string $courseId)
     {
       return  $this->model->where('course_id', $courseId)->paginate();
     }
