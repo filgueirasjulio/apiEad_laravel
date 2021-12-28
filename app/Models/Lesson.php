@@ -20,4 +20,8 @@ class Lesson extends Model
         return $this->belongsTo(Module::class);
     }
 
+    public function supports()
+    {
+        return $this->hasMany(Support::class);
+    }
 }

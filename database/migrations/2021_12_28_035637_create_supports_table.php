@@ -15,6 +15,7 @@ class CreateSupportsTable extends Migration
     {
         Schema::create('supports', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('user_id');
             $table->uuid('lesson_id');
             $table->string('status')->open('pending');
             $table->string('description');

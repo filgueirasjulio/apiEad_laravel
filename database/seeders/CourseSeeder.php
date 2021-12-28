@@ -15,7 +15,9 @@ class CourseSeeder extends Seeder
     {
         \App\Models\Course::factory(5)
             ->has(\App\Models\Module::factory(3)->has(
-                \App\Models\Lesson::factory(5)
+                \App\Models\Lesson::factory(3)->has(
+                    \App\Models\Support::factory(1)
+                )
             ))
             ->create();
     }
