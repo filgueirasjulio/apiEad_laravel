@@ -15,12 +15,6 @@ class Support extends Model
 
     protected $fillable = ['description', 'status'];
 
-    protected $statusOptions = [
-        'pending' => 'Pendente, aguardando professor',
-        'open' => 'Aguardando aluno',
-        'finished' => 'Finalizado'
-    ];
-
     public function user()
     {
         return $this->belongsTo(User::class);
