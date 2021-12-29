@@ -18,6 +18,7 @@ class SupportResource extends JsonResource
             'status' => $this->status,
             'status_label' => config('enums.supports.status')[$this->status],
             'description' => $this->description,
+            'lesson' =>  new LessonResource($this->lesson)
         ];
     }
 }
