@@ -19,14 +19,13 @@ class LessonController extends Controller
     /**
      * Lista aulas a partir de um curso e um módulo
      *
-     * @param string $courseId
      * @param string $moduleId
      * 
      * @return collection
      */
-    public function index($courseId, $moduleId)
+    public function index($moduleId)
     {
-        return LessonResource::collection($this->repository->getAllLessons($courseId, $moduleId));
+        return LessonResource::collection($this->repository->getAllLessons($moduleId));
     }
 
     /**
@@ -38,8 +37,8 @@ class LessonController extends Controller
      * 
      * @return object
      */
-    public function show($courseId, $moduleId, $lessonId)
+    public function show($moduleId, $lessonId)
     {
-        return new LessonResource($this->repository->getLesson($courseId, $moduleId, $lessonId));
+        return new LessonResource($this->repository->getLesson($moduleId, $lessonId));
     }
 }
