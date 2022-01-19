@@ -3,30 +3,28 @@
 namespace App\Models;
 
 use App\Traits\UuidTrait;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Support extends Model
+class ReplySupport extends Model
 {
     use HasFactory, UuidTrait;
 
+    protected $fillable = ['user_id', 'support_id', 'description'];
+
     public $incrementing = false;
+
     protected $keyType = 'uuid';
 
-    protected $fillable = ['description', 'status', 'lesson_id'];
+    protected $table = "reply_support";
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function lesson()
+    public function support()
     {
-        return $this->belongsTo(Lesson::class);
-    }
-
-    public function replies()
-    {
-        return $this->hasMany(ReplySupport::class);
+        return $this->belongsTo(Support::class);
     }
 }

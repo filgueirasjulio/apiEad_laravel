@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Models\ReplySupport;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SupportResource extends JsonResource
+class ReplySupportResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,11 +16,9 @@ class SupportResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'status' => $this->status,
-            'status_label' => config('enums.supports.status')[$this->status],
             'description' => $this->description,
-            'lesson' =>  new LessonResource($this->lesson),
-            'replies' => LessonResource::collection($this->replies)
+            'support' => new SupportResource($this->support),
+            'user' => new UserResource($this->user)  
         ];
     }
 }
