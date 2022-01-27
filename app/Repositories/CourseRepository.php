@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Exceptions\CourseNotFoundException;
 use App\Models\Course;
 
 class CourseRepository
@@ -21,5 +22,6 @@ class CourseRepository
     public function getCourse($identify)
     {
         return $this->model->with('modules.lessons')->findOrFail($identify);
+    
     }
 }

@@ -6,21 +6,23 @@ use App\Models\Support;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreSupport;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ReplyResource;
 use App\Http\Resources\SupportResource;
 use App\Repositories\SupportRepository;
 use App\Http\Requests\StoreReplySupport;
 use App\Http\Resources\ReplySupportResource;
+use App\Traits\Loggable;
 
 class SupportController extends Controller
 {
+    use Loggable;
+
     protected $repository;
 
     public function __construct(SupportRepository $repository)
     {
         $this->repository = $repository;
     }
-    
+
     /**
      * Lista dúvidas a partir de uma aula
      *
@@ -30,7 +32,13 @@ class SupportController extends Controller
      */
     public function index(Request $request)
     {
-        return SupportResource::collection($this->repository->getSupports($request->all()));
+        try {
+            return SupportResource::collection($this->repository->getSupports($request->all()));
+        } catch (\Exception $e) {
+            $this->log('App\Http\Controllers\Api\SupportController - (index)', $e, null, 'daily');
+
+            return response()->json(['message' => $e->getMessage()], 400);
+        } 
     }
 
     /**
@@ -42,11 +50,18 @@ class SupportController extends Controller
      */
     public function store(StoreSupport $request)
     {
-        $support = $this->repository->createNewSupport($request->validated());
+        try {
+            $support = $this->repository->createNewSupport($request->validated());
+        } catch (\Exception $e) {
+            $this->log('App\Http\Controllers\Api\SupportController - (store)', $e, null, 'daily');
+
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
+
         return new SupportResource($support);
     }
 
-    
+
     /**
      * Registra uma resposta
      *
@@ -56,8 +71,14 @@ class SupportController extends Controller
      */
     public function createReply(StoreReplySupport $request, Support $support)
     {
-        $reply = $this->repository->createReplyToSupportId($request->validated(), $support->id);
+        try {
+            $reply = $this->repository->createReplyToSupportId($request->validated(), $support->id);
+        } catch (\Exception $e) {
+            $this->log('App\Http\Controllers\Api\SupportController - (createReply)', $e, null, 'daily');
 
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
+         
         return new ReplySupportResource($reply);
     }
 }

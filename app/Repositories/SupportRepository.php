@@ -2,14 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Http\Requests\StoreSupport;
-use App\Models\User;
 use App\Models\Support;
 use App\Traits\GetUserAuth;
+use App\Traits\Loggable;
 
 class SupportRepository
 {
     use GetUserAuth;
+    use Loggable;
 
     protected $model;
 
@@ -20,9 +20,6 @@ class SupportRepository
 
     public function getSupports(array $filters = [])
     {
-        //$user = auth()->user();
-        $user = User::first();
-
         return  $this->model
                 ->where(function ($query) use ($filters) {
                     if(isset($filters['lesson_id'])) {
