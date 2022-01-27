@@ -18,6 +18,8 @@ class ReplySupport extends Model
 
     protected $table = "reply_support";
 
+    protected $touches = ['support'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
