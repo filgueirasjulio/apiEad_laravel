@@ -7,8 +7,8 @@ use App\Http\Controllers\Api\AuthController;
 
 /** autenticação */
     Route::post('/auth', [Controller\AuthController::class, 'auth']);
-
     Route::post('/logout', [Controller\AuthController::class, 'logout'])->middleware('auth:sanctum');
+    Route::get('/me', [Controller\AuthController::class, 'me'])->middleware('auth:sanctum');
 
     Route::middleware(['auth:sanctum'])->group(function() {
         /** Cursos */
