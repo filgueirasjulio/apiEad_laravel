@@ -16,6 +16,13 @@ class SupportRepository
         $this->model = $model;
     }
 
+    public function getMySupports(array $filters = [])
+    {
+        $filters['user_id'] = true;
+
+        return $this->getSupports($filters);
+    }
+
     public function getSupports(array $filters = [])
     {
         return  $this->model
@@ -31,6 +38,12 @@ class SupportRepository
                     if(isset($filters['description'])) {
                         $description = $filters['description'];
                         $query->where('description', 'LIKE', "%{$description}%");
+                    }
+
+                    if(isset($filters['user_id'])) {
+                        $user = $this->getUserAuth();
+
+                        $query->where('user_id', $user->id);
                     }
                 })->orderBy('updated_at', 'DESC')
                 ->paginate();

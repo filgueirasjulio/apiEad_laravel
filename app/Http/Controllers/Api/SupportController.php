@@ -58,4 +58,22 @@ class SupportController extends Controller
 
         return new SupportResource($support);
     }
+
+    /**
+     * Lista dúvidas de um usuário em específico 
+     *
+     * @param Request $request
+     * 
+     * @return collection
+     */
+    public function mySupports(Request $request)
+    {
+        try {
+            return SupportResource::collection($this->repository->getMySupports($request->all()));
+        } catch (\Exception $e) {
+            $this->log('App\Http\Controllers\Api\SupportController - (mySupports)', $e, null, 'daily');
+
+            return response()->json(['message' => $e->getMessage()], 400);
+        } 
+    }
 }
