@@ -3,23 +3,29 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api as Controller;
+use App\Http\Controllers\Api\AuthController;
 
-/** Cursos */
-Route::get('/courses', [Controller\CourseController::class, 'index']);
-Route::get('/courses/{id}', [Controller\CourseController::class, 'show']);
+/** autenticação */
+    Route::post('/auth', [Controller\AuthController::class, 'auth']);
 
-/** Módulos */
-Route::get('/courses/{id}/modules', [Controller\ModuleController::class, 'index']);
+    Route::middleware(['auth:sanctum'])->group(function() {
+        /** Cursos */
+    Route::get('/courses', [Controller\CourseController::class, 'index']);
+    Route::get('/courses/{id}', [Controller\CourseController::class, 'show']);
 
-/** Aulas */
-Route::get('/modules/{moduleId}/lessons', [Controller\LessonController::class, 'index']);
-Route::get('/modules/{moduleId}/lessons/{lessonId}', [Controller\LessonController::class, 'show']);
+    /** Módulos */
+    Route::get('/courses/{id}/modules', [Controller\ModuleController::class, 'index']);
 
-/** Dúvidas */
-Route::get('/supports/me/', [Controller\SupportController::class, 'mySupports']);
-Route::get('/supports', [Controller\SupportController::class, 'index']);
-Route::post('/supports', [Controller\SupportController::class, 'store']);
-Route::post('/supports/replies/create', [Controller\ReplySupportController::class, 'createReply']);
+    /** Aulas */
+    Route::get('/modules/{moduleId}/lessons', [Controller\LessonController::class, 'index']);
+    Route::get('/modules/{moduleId}/lessons/{lessonId}', [Controller\LessonController::class, 'show']);
+
+    /** Dúvidas */
+    Route::get('/supports/me/', [Controller\SupportController::class, 'mySupports']);
+    Route::get('/supports', [Controller\SupportController::class, 'index']);
+    Route::post('/supports', [Controller\SupportController::class, 'store']);
+    Route::post('/supports/replies/create', [Controller\ReplySupportController::class, 'createReply']);
+});
 
 Route::get('/', function() {
     return response()->json([

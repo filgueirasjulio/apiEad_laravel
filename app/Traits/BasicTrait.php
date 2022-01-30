@@ -9,9 +9,7 @@ trait BasicTrait
 {
     public function getUserAuth()
     {
-       //return auth()->user();
-
-       return User::first();
+       return auth()->user();
     }
     
     public static function booted()
