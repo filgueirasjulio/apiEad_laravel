@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
+use Exception;
+use App\Traits\LoggableTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\LessonResource;
 use App\Repositories\LessonRepository;
 
 class LessonController extends Controller
 {
+    use LoggableTrait;
+
     protected $repository;
 
     public function __construct(LessonRepository $repository)
@@ -25,7 +28,13 @@ class LessonController extends Controller
      */
     public function index($moduleId)
     {
-        return LessonResource::collection($this->repository->getAllLessons($moduleId));
+        try {
+            return LessonResource::collection($this->repository->getAllLessons($moduleId));
+        } catch(Exception $e) {
+            $this->log('App\Http\Controllers\Api\LessonController - (index)', $e, null, 'daily');
+
+            return response()->json(['message' => $e->getMessage()], 400);
+        }  
     }
 
     /**
@@ -39,6 +48,12 @@ class LessonController extends Controller
      */
     public function show($moduleId, $lessonId)
     {
-        return new LessonResource($this->repository->getLesson($moduleId, $lessonId));
+        try {
+            return new LessonResource($this->repository->getLesson($moduleId, $lessonId));
+        } catch(Exception $e) {
+            $this->log('App\Http\Controllers\Api\LessonController - (show)', $e, null, 'daily');
+
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
     }
 }

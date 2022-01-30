@@ -8,13 +8,11 @@ use App\Http\Requests\StoreSupport;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SupportResource;
 use App\Repositories\SupportRepository;
-use App\Http\Requests\StoreReplySupport;
-use App\Http\Resources\ReplySupportResource;
-use App\Traits\Loggable;
+use App\Traits\LoggableTrait;
 
 class SupportController extends Controller
 {
-    use Loggable;
+    use LoggableTrait;
 
     protected $repository;
 
@@ -59,26 +57,5 @@ class SupportController extends Controller
         }
 
         return new SupportResource($support);
-    }
-
-
-    /**
-     * Registra uma resposta
-     *
-     * @param Support $support
-     * 
-     * @return Support
-     */
-    public function createReply(StoreReplySupport $request, Support $support)
-    {
-        try {
-            $reply = $this->repository->createReplyToSupportId($request->validated(), $support->id);
-        } catch (\Exception $e) {
-            $this->log('App\Http\Controllers\Api\SupportController - (createReply)', $e, null, 'daily');
-
-            return response()->json(['message' => $e->getMessage()], 400);
-        }
-         
-        return new ReplySupportResource($reply);
     }
 }

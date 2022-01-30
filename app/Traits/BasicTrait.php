@@ -2,10 +2,18 @@
 
 namespace App\Traits;
 
+use App\Models\User;
 use Illuminate\Support\Str;
 
-trait UuidTrait
+trait BasicTrait
 {
+    public function getUserAuth()
+    {
+       //return auth()->user();
+
+       return User::first();
+    }
+    
     public static function booted()
     {
         static::creating(function ($model) {

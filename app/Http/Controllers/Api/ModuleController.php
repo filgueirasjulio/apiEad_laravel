@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
+use App\Traits\LoggableTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ModuleResource;
 use App\Repositories\ModuleRepository;
+use Exception;
 
 class ModuleController extends Controller
 {
+    use LoggableTrait;
+    
     protected $repository;
 
     public function __construct(ModuleRepository $repository)
@@ -25,6 +28,13 @@ class ModuleController extends Controller
      */
     public function index($courseId)
     {
-        return ModuleResource::collection($this->repository->getAllModules($courseId));
+        try {
+            return ModuleResource::collection($this->repository->getAllModules($courseId));
+        } catch (Exception $e) {
+            $this->log('App\Http\Controllers\Api\ModuleController - (index)', $e, null, 'daily');
+
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
+    
     }
 }

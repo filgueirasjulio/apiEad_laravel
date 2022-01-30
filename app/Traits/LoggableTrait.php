@@ -4,7 +4,7 @@ namespace App\Traits;
 
 use Illuminate\Support\Facades\Log;
 
-trait Loggable
+trait LoggableTrait
 {
     /**
      * Função auxiliar para realização de log.

@@ -3,13 +3,11 @@
 namespace App\Repositories;
 
 use App\Models\Support;
-use App\Traits\GetUserAuth;
-use App\Traits\Loggable;
+use App\Traits\BasicTrait;
 
 class SupportRepository
 {
-    use GetUserAuth;
-    use Loggable;
+    use BasicTrait;
 
     protected $model;
 

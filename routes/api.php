@@ -18,7 +18,7 @@ Route::get('/modules/{moduleId}/lessons/{lessonId}', [Controller\LessonControlle
 /** Dúvidas */
 Route::get('/supports', [Controller\SupportController::class, 'index']);
 Route::post('/supports', [Controller\SupportController::class, 'store']);
-Route::post('/supports/{support}/replies/create', [Controller\SupportController::class, 'createReply']);
+Route::post('/supports/replies/create', [Controller\ReplySupportController::class, 'createReply']);
 
 Route::get('/', function() {
     return response()->json([

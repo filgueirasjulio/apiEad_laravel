@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Traits\Loggable;
+use App\Traits\LoggableTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CourseResource;
@@ -10,7 +10,7 @@ use App\Repositories\CourseRepository;
 
 class CourseController extends Controller
 {
-    use Loggable;
+    use LoggableTrait;
     
     protected $repository;
 

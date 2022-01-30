@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Traits\UuidTrait;
+use App\Traits\BasicTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ReplySupport extends Model
 {
-    use HasFactory, UuidTrait;
+    use HasFactory, BasicTrait;
 
     protected $fillable = ['user_id', 'support_id', 'description'];
 
