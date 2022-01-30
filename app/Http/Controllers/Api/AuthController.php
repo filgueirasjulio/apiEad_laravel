@@ -20,12 +20,19 @@ class AuthController extends Controller
             ]);
         }
   
-       $user->tokens()->delete(); //se estiver authenticado em outro dispositivo, será deslogado.
+        $user->tokens()->delete(); //se estiver authenticado em outro dispositivo, será deslogado.
   
         $token = $user->createToken($request->device_name)->plainTextToken;
       
         return response()->json([
             'token' => $token
         ]);
+    }
+
+    public function logout()
+    {
+       auth()->user()->tokens()->delete();
+
+       return response()->json(['logout realizado com sucesso!']);
     }
 }
