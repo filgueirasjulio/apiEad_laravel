@@ -5,13 +5,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api as Controller;
 use App\Http\Controllers\Api\AuthController;
 
-/** autenticação */
+    /** não requer autenticação */
     Route::post('/auth', [Controller\AuthController::class, 'auth']);
+    Route::post('/forgot', [Controller\AuthController::class, 'forgot'])->middleware('guest');
+    Route::post('/reset', [Controller\AuthController::class, 'reset'])->middleware('guest');
+
+    /** requer autenticação */
     Route::post('/logout', [Controller\AuthController::class, 'logout'])->middleware('auth:sanctum');
     Route::get('/me', [Controller\AuthController::class, 'me'])->middleware('auth:sanctum');
 
     Route::middleware(['auth:sanctum'])->group(function() {
-        /** Cursos */
+    /** Cursos */
     Route::get('/courses', [Controller\CourseController::class, 'index']);
     Route::get('/courses/{id}', [Controller\CourseController::class, 'show']);
 
