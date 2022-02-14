@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use Exception;
+use App\Models\Lesson;
 use App\Traits\LoggableTrait;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\ViewStoreRequest;
 use App\Http\Resources\LessonResource;
 use App\Repositories\LessonRepository;
 
@@ -55,5 +57,19 @@ class LessonController extends Controller
 
             return response()->json(['message' => $e->getMessage()], 400);
         }
+    }
+
+     /**
+     * Marca uma aula como vista
+     * 
+     * @param ViewStoreRequest $request
+     * 
+     * @return mixed
+     */
+    public function viewed(ViewStoreRequest $request)
+    {
+        $this->repository->markLessonViewed($request->lesson_id);
+
+        return response()->json(['success' => true]);
     }
 }

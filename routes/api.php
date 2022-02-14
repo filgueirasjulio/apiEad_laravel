@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api as Controller;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\LessonController;
 
-    /** não requer autenticação */
+/** não requer autenticação */
     Route::post('/auth', [Controller\AuthController::class, 'auth']);
     Route::post('/forgot', [Controller\AuthController::class, 'forgot'])->middleware('guest');
     Route::post('/reset', [Controller\AuthController::class, 'reset'])->middleware('guest');
@@ -25,6 +26,7 @@ use App\Http\Controllers\Api\AuthController;
     /** Aulas */
     Route::get('/modules/{moduleId}/lessons', [Controller\LessonController::class, 'index']);
     Route::get('/modules/{moduleId}/lessons/{lessonId}', [Controller\LessonController::class, 'show']);
+    Route::post('/lessons/viewed', [Controller\LessonController::class, 'viewed']);
 
     /** Dúvidas */
     Route::get('/supports/me/', [Controller\SupportController::class, 'mySupports']);
