@@ -15,6 +15,7 @@ class Lesson extends Model
 
     protected $fillable = ['name', 'description', 'video'];
 
+    #region relations
     public function module()
     {
         return $this->belongsTo(Module::class);
@@ -34,4 +35,5 @@ class Lesson extends Model
                 }
             });
     }
+    #endregion
 }

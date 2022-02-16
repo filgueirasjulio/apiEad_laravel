@@ -48,6 +48,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    #region relations
     public function supports()
     {
         return $this->hasMany(Support::class);
@@ -57,9 +58,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(View::class);
     }
+    #endregion
 
+    #region notifications
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
     }
+    #endregion
 }

@@ -15,6 +15,7 @@ class Support extends Model
 
     protected $fillable = ['description', 'status', 'lesson_id'];
 
+    #region relations
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -29,4 +30,5 @@ class Support extends Model
     {
         return $this->hasMany(ReplySupport::class);
     }
+    #endregion
 }

@@ -10,11 +10,15 @@ use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Api\AuthRequest;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    /** 
+     * @return mixed
+     */
     public function auth(AuthRequest $request)
     {
         $user = User::where('email', $request->email)->first();
@@ -34,6 +38,9 @@ class AuthController extends Controller
         ]);
     }
 
+    /** 
+     * @return mixed
+     */
     public function logout()
     {
        auth()->user()->tokens()->delete();
@@ -41,6 +48,9 @@ class AuthController extends Controller
        return response()->json(['logout realizado com sucesso!']);
     }
 
+    /** 
+     * @return mixed
+     */
     public function me()
     {
         $user = auth()->user();
@@ -48,6 +58,11 @@ class AuthController extends Controller
         return new UserResource($user);
     }
 
+    /**
+     * @param Request $request
+     * 
+     * @return mixed
+     */
     public function forgot(Request $request)
     {
         $request->validate(['email' => 'required|email']);
@@ -59,6 +74,11 @@ class AuthController extends Controller
                   : response()->json(['status' => __($status)], 422);
     }
 
+    /**
+     * @param Request $request
+     * 
+     * @return mixed
+     */
     public function reset(Request $request)
     {
         $request->validate([

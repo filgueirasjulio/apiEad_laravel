@@ -14,6 +14,11 @@ class CourseController extends Controller
     
     protected $repository;
 
+    /**
+     * @param CourseRepository $repository
+     * 
+     * @return void
+     */
     public function __construct(CourseRepository $repository)
     {
         $this->repository = $repository;
@@ -22,7 +27,7 @@ class CourseController extends Controller
     /**
      * Lista de cursos
      *
-     * @return collection
+     * @return mixed
      */
     public function index()
     {
@@ -40,7 +45,7 @@ class CourseController extends Controller
      * 
      * @param string $uuid
      * 
-     * @return object
+     * @return mixed
      */
     public function show($uuid)
     { 

@@ -13,18 +13,23 @@ class ModuleController extends Controller
     use LoggableTrait;
     
     protected $repository;
-
+    
+    /**
+     * @param ModuleRepository $repository
+     * 
+     * @return void
+     */
     public function __construct(ModuleRepository $repository)
     {
         $this->repository = $repository;
     }
 
-      /**
+    /**
      * Lista módulos a partir de um curso
      *
      * @param string $courseId
      * 
-     * @return collection
+     * @return mixed
      */
     public function index($courseId)
     {

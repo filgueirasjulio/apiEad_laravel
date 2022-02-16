@@ -12,11 +12,23 @@ class LessonRepository
 
   protected $model;
 
+  /**
+  * @param Lesson $model
+  * 
+  * @return void
+  */
   public function __construct(Lesson $model)
   {
     $this->model = $model;
   }
 
+  /**
+  * Retorna todas as aulas de um módulo
+  * 
+  * @param string $moduleId
+  *
+  * @return mixed
+  */
   public function getAllLessons(string $moduleId)
   {
     return $this->model->whereHas('module', function ($query) use ($moduleId) {
@@ -24,6 +36,14 @@ class LessonRepository
     })->paginate();
   }
 
+  /**
+  * Retorna uma aula em especifico
+  * 
+  * @param string $moduleId
+  * @param string $lessonId
+  *
+  * @return mixed
+  */
   public function getLesson(string $moduleId, string $lessonId)
   {
     return $this->model->whereHas('module', function ($query) use ($moduleId) {
@@ -31,6 +51,13 @@ class LessonRepository
     })->findOrFail($lessonId);
   }
 
+  /**
+  * Marca uma aula como visualizada
+  * 
+  * @param string $lessonId
+  *
+  * @return mixed
+  */
   public function markLessonViewed(string $lessonId)
   {
     $user =  $this->getUserAuth();

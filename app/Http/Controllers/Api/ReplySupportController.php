@@ -14,6 +14,11 @@ class ReplySupportController extends Controller
 
     protected $repository;
 
+    /**
+     * @param ReplySupportRepository $repository
+     * 
+     * @return void
+     */
     public function __construct(ReplySupportRepository $repository)
     {
         $this->repository = $repository;
@@ -24,7 +29,7 @@ class ReplySupportController extends Controller
      *
      * @param Support $support
      * 
-     * @return Support
+     * @return mixed
      */
     public function createReply(StoreReplySupport $request)
     {

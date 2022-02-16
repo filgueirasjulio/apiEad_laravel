@@ -16,6 +16,11 @@ class SupportController extends Controller
 
     protected $repository;
 
+    /**
+     * @param SupportRepository $repository
+     * 
+     * @return void
+     */
     public function __construct(SupportRepository $repository)
     {
         $this->repository = $repository;
@@ -26,7 +31,7 @@ class SupportController extends Controller
      *
      * @param Request $request
      * 
-     * @return collection
+     * @return mixed
      */
     public function index(Request $request)
     {
@@ -44,7 +49,7 @@ class SupportController extends Controller
      *
      * @param StoreSupport $request
      * 
-     * @return Support
+     * @return mixed
      */
     public function store(StoreSupport $request)
     {
@@ -64,7 +69,7 @@ class SupportController extends Controller
      *
      * @param Request $request
      * 
-     * @return collection
+     * @return mixed
      */
     public function mySupports(Request $request)
     {

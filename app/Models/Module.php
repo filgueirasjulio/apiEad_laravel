@@ -15,6 +15,7 @@ class Module extends Model
 
     protected $fillable = ['name'];
 
+    #region relations
     public function course()
     {
         return $this->belongsTo(Course::class);
@@ -24,4 +25,5 @@ class Module extends Model
     {
         return $this->hasMany(Lesson::class);
     }
+    #endregion
 }

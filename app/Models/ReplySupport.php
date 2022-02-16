@@ -20,6 +20,7 @@ class ReplySupport extends Model
 
     protected $touches = ['support'];
 
+    #region relaitons
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -29,4 +30,5 @@ class ReplySupport extends Model
     {
         return $this->belongsTo(Support::class);
     }
+    #endregion
 }

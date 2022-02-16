@@ -13,12 +13,23 @@ class ReplySupportRepository
 
     protected $model;
 
+    /**
+    * @param ReplySupport $model
+    * 
+    * @return void
+    */
     public function __construct(ReplySupport $model)
     {
         $this->model = $model;
     }
 
-
+    /**
+    * Cria resposta para uma pergunta
+    * 
+    * @param array $data
+    *
+    * @return mixed
+    */
     public function createReplyToSupport(array $data)
     {
        $user = $this->getUserAuth();
@@ -31,9 +42,16 @@ class ReplySupportRepository
               ]);
     }
 
-    private function getSupport(string $id)
+    /**
+    * Retorna uma pergunta em especifico
+    * 
+    * @param string $uuid
+    *
+    * @return mixed
+    */
+    private function getSupport(string $uuid)
     {
-        return $this->model->findOrFail($id);
+        return $this->model->findOrFail($uuid);
     }
 
 }

@@ -19,8 +19,10 @@ class Course extends Model
         'image'
     ];
 
+    #region relations
     public function modules()
     {
         return $this->hasMany(Module::class);
     }
+    #endregion
 }

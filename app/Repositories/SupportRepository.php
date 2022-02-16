@@ -11,11 +11,23 @@ class SupportRepository
 
     protected $model;
 
+    /**
+    * @param Support $model
+    * 
+    * @return void
+    */
     public function __construct(Support $model)
     {
         $this->model = $model;
     }
 
+    /**
+    * Retorna perguntas feitas pelo usuário
+    * 
+    * @param array $filters
+    *
+    * @return mixed
+    */
     public function getMySupports(array $filters = [])
     {
         $filters['user_id'] = true;
@@ -23,6 +35,13 @@ class SupportRepository
         return $this->getSupports($filters);
     }
 
+    /**
+    * Retorna perguntas
+    * 
+    * @param array $filters
+    *
+    * @return mixed
+    */
     public function getSupports(array $filters = [])
     {
         return  $this->model
@@ -49,6 +68,13 @@ class SupportRepository
                 ->paginate();
     }
 
+    /**
+    * Cria uma nova pergunta em uma aula
+    * 
+    * @param array $data
+    *
+    * @return mixed
+    */
     public function createNewSupport(array $data) : Support
     {
         return $this->getUserAuth()
@@ -60,6 +86,14 @@ class SupportRepository
              ]);
     }
 
+    /**
+    * Cria uma resposta para uma pergunta
+    * 
+    * @param array $data
+    * @param integer $id
+    *
+    * @return mixed
+    */
     public function createReplyToSupportId(array $data, string $id)
     {
         $user = $this->getUserAuth();
@@ -72,9 +106,16 @@ class SupportRepository
               ]);
     }
 
-    private function getSupport(string $id)
+    /**
+     * Recupera uma pergunta
+     *
+     * @param string $uuid
+     * 
+     * @return mixed
+     */
+    private function getSupport(string $uuid)
     {
-        return $this->model->findOrFail($id);
+        return $this->model->findOrFail($uuid);
     }
 
 }

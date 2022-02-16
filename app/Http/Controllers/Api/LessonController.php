@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use Exception;
-use App\Models\Lesson;
 use App\Traits\LoggableTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ViewStoreRequest;
@@ -16,6 +15,11 @@ class LessonController extends Controller
 
     protected $repository;
 
+    /**
+     * @param LessonRepository $repository
+     * 
+     * @return void
+     */
     public function __construct(LessonRepository $repository)
     {
         $this->repository = $repository;
@@ -26,7 +30,7 @@ class LessonController extends Controller
      *
      * @param string $moduleId
      * 
-     * @return collection
+     * @return mixed
      */
     public function index($moduleId)
     {
@@ -42,11 +46,10 @@ class LessonController extends Controller
     /**
      * Retorna uma aula
      * 
-     * @param string $courseId
      * @param string $moduleId
      * @param string $lessonId
      * 
-     * @return object
+     * @return mixed
      */
     public function show($moduleId, $lessonId)
     {

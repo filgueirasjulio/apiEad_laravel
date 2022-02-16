@@ -11,6 +11,7 @@ class View extends Model
 
     protected $fillable = ['lesson_id', 'user_id', 'qty'];
 
+    #region relaitons
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -20,4 +21,5 @@ class View extends Model
     {
         return $this->belongsTo(Lesson::class);
     }
+    #endregion
 }
