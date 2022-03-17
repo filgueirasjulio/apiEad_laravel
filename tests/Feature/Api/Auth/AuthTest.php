@@ -4,9 +4,12 @@ namespace Tests\Feature\Api\Auth;
 
 use Tests\TestCase;
 use App\Models\User;
+use Tests\Traits\UtilsTrait;
 
 class AuthTest extends TestCase
 {
+    use UtilsTrait;
+    
     public $user;
     public $token;
 
@@ -15,7 +18,7 @@ class AuthTest extends TestCase
         parent::setUp();
 
         $this->user = User::factory()->create();
-        $this->token =  $this->user->createToken('teste')->plainTextToken;
+        $this->token =  $this->generateToken();
     }
 
     public function test_fail_auth()
